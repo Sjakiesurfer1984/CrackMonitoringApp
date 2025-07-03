@@ -1,0 +1,21 @@
+# Ignore Python artifacts
+__pycache__/
+*.pyc
+
+# Ignore environments
+.venv/
+env/
+*.env
+
+# Ignore build files
+*.spec
+dist/
+build/
+
+# VSCode settings
+.vscode/
+
+
+# Data
+*.csv
+Data/
