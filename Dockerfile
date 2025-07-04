@@ -28,4 +28,4 @@ ENV STREAMLIT_SERVER_ADDRESS=0.0.0.0
 ENV STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
 
 # Start the app
-CMD ["python", "run_main.py"]
+CMD ["python", "main.py"]
