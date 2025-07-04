@@ -1,31 +1,31 @@
-# Base image with Python & Streamlit
+# Base image
 FROM python:3.11-slim
 
-# Avoid prompts during build
+# Non-interactive build
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies (optional but safe)
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy app code
+# Copy all app files
 COPY . .
 
 # Install Python dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Expose port Streamlit uses
+# Expose the Streamlit port
 EXPOSE 7860
 
-# Set streamlit config (disable telemetry and use specified port)
+# Streamlit config
 ENV STREAMLIT_SERVER_PORT=7860
 ENV STREAMLIT_SERVER_ADDRESS=0.0.0.0
 ENV STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
 
-# Start the app
-CMD ["python", "main.py"]
+# ✅ Launch the actual Streamlit app
+CMD ["streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0"]
