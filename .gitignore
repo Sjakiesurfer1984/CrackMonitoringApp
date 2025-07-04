@@ -1,0 +1,70 @@
+# ------------------
+# Python cache
+# ------------------
+__pycache__/
+*.py[cod]
+*.pyo
+
+# ------------------
+# Virtual environments
+# ------------------
+.venv/
+env/
+venv/
+
+# ------------------
+# Build artifacts
+# ------------------
+build/
+dist/
+*.spec
+
+# ------------------
+# VSCode
+# ------------------
+.vscode/
+
+# ------------------
+# Streamlit config
+# ------------------
+.streamlit/
+
+# ------------------
+# 🖥️ OS crap
+# ------------------
+.DS_Store
+Thumbs.db
+
+# ------------------
+# Executables & shared libs
+# ------------------
+*.dll
+*.exe
+*.so
+*.dylib
+
+# ------------------
+# Local data & backups
+# ------------------
+*.db
+*.csv
+*.xlsx
+*.bak
+backups/
+
+# ------------------
+# Docker-related (optional)
+# ------------------
+**/__pycache__/
+*.log
+*.pid
+
+# DO NOT ignore Dockerfile or requirements.txt (they're needed by Hugging Face)
+!Dockerfile
+!requirements.txt
+
+# DO NOT ignore main app files
+!app.py
+!main.py
+!database_handler.py
+!data_loader.py
