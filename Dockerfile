@@ -1,26 +1,20 @@
-# Base image
 FROM python:3.11-slim
 
-# Create non-root user to avoid permission errors
-RUN adduser --disabled-password --gecos '' appuser
+# Create a user with home directory
+RUN useradd -ms /bin/bash appuser
 
-# Set working directory
+# Set home and work dir
+ENV HOME=/home/appuser
 WORKDIR /home/appuser/app
 
-# Set environment variables for Streamlit
-ENV STREAMLIT_SERVER_PORT=7860
-ENV STREAMLIT_SERVER_ADDRESS=0.0.0.0
-ENV STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
+# Set up Streamlit config directory
+ENV STREAMLIT_HOME=$HOME/.streamlit
+RUN mkdir -p $STREAMLIT_HOME
 
-# Copy all files
+# Install system deps and app deps
+RUN apt-get update && apt-get install -y build-essential && rm -rf /var/lib/apt/lists/*
 COPY . .
-
-# Install Python dependencies
 RUN pip install --upgrade pip && pip install -r requirements.txt
-
-# Make a writable .streamlit config directory
-RUN mkdir -p /home/appuser/.streamlit
-ENV STREAMLIT_CONFIG_DIR=/home/appuser/.streamlit
 
 # Switch to non-root user
 USER appuser
@@ -28,5 +22,5 @@ USER appuser
 # Expose port
 EXPOSE 7860
 
-# Final CMD
+# Run Streamlit with correct config
 CMD ["streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0"]
